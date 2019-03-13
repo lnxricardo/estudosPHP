@@ -1,29 +1,39 @@
-<?php
-
+<?php 
 require 'config.php';
 
-if(isset($_POST['usuario']) && empty($_POST['usuario']) == false){
-	$usuario = addslashes($_POST['usuario']);
-	$email = addslashes($_POST['email']);
-	$senha = addslashes($_POST['senha']);
+if(isset($_POST['nome']) && empty($_POST['nome']) == false){
 
-	$sql = "INSERT INTO usuarios SET usuario = '$usuario', email = '$email', senha = '$senha'";
+	$nome = addslashes($_POST['nome']);
+	$email = addslashes($_POST['email']);
+	$senha = md5(addslashes($_POST['senha']));
+
+	$sql = "INSERT INTO usuarios SET nome='$nome', email='$email', senha='$senha'";
 	$pdo->query($sql);
+
 
 	header("Location: index.php");
 
+
+}else{
+	echo "Favor preencher os campos";
 }
+
 
 
  ?>
 
 
 
-<form method="POST">
-<input type="text" name="usuario" placeholder="nome..."><br><br>
-<input type="text" name="email" placeholder="email..."><br><br>
-<input type="password" name="senha" placeholder="senha..."><br>
-<input type="submit" name="enviar">	
-</form>
 
-<a href="index.php">Voltar</a>
+<form method="POST">
+	Nome:<br>
+	<input type="text" name="nome"><br><br>
+	E-mail:<br>
+	<input type="text" name="email"><br><br>
+	Senha:<br>
+	<input type="password" name="senha"><br>
+	<input type="submit" name="cadastrar"><br>
+
+	<a href="index.php">voltar</a>
+
+</form>
